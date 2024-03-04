@@ -1,4 +1,6 @@
-int gnss_start(int update_rate) {
+#include "loc_thread.h"
+
+int Positioning::gnss_start(int update_rate) {
   int err;
   gnss_thread_run = true;
   //Set up I2C
@@ -11,11 +13,11 @@ int gnss_start(int update_rate) {
     return -1;
   }
   gnss.setI2COutput(COM_TYPE_UBX);
-  gnss.setNavigationFrequency(25);
+  gnss.setNavigationFrequency(update_rate);
   Serial.print("GNSS nav frequency set to");
-  Serial.println(gnss.getNavigationFrequency);
+  Serial.println(gnss.getNavigationFrequency());
 
-  err = gnss_thread.start(gnss_run);
+  err = gnss_thread.start(mbed::callback(this, &Positioning::gnss_run));
   if (err) {
     //I really wish I was using zephyr here, I'm missing LOG_ERR already
     Serial.print("GNSS thread start failed: ");
@@ -27,7 +29,7 @@ int gnss_start(int update_rate) {
 }
 
 
-void gnss_run() {
+void Positioning::gnss_run() {
   byte fix_type;
   while (gnss_thread_run) {
   //From Example 7:
@@ -40,26 +42,28 @@ void gnss_run() {
     //put position into struct
     position.lat = gnss.getLatitude();
     position.lon = gnss.getLongitude();
-    position.rot = gnss.getHead;
+    //FIXME
+    //position.rot = gnss.getHead;
     fix_type = gnss.getFixType();
     switch (fix_type) {
       case 0:
-        position.fix_type = NO_FIX;
+        position.fix_type = FIX_NONE;
         break;
       case 2:
-        position.fix_type = 2D_FIX;
+        position.fix_type = FIX_2D;
         break;
       case 3:
-        position.fix_type = 3D_FIX;
+        position.fix_type = FIX_3D;
         break;
       default: //Time only fix OR dead reckoning fixes, both of which are not possible in this config
-        position.fix_type = NO_FIX;
+        position.fix_type = FIX_NONE;
     }
   }
   //Thread has been stopped
+  return;
 }
 
-int gnss_stop() {
+int Positioning::gnss_stop() {
   gnss_thread_run = false;
   return 0;
 }

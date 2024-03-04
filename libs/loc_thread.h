@@ -1,34 +1,37 @@
 #ifndef LOC_THREAD_H
 #define LOC_THREAD_H
 #include "Wire.h"
+#include "mbed.h"
 #include <SparkFun_u-blox_GNSS_Arduino_Library.h>
 
 typedef enum {
-  NO_FIX,
-  2D_FIX,
-  3D_FIX
-} t_gnss_fix_type;
+  FIX_NONE,
+  FIX_2D,
+  FIX_3D
+} gnss_fix_type;
 
-struct gnss_pos_t {
-  double lat,
-  double lon,
-  double rot,
-  t_gnss_fix_type fix_type
+struct gnss_pos_type {
+  float lat;
+  float lon;
+  float rot;
+  gnss_fix_type fix_type;
 };
 
 
-SFE_UBLOX_GNSS gnss;
-rtos::Thread gnss_thread;
-extern gnss_pos_t position;
-bool gnss_thread_run = true;
+class Positioning {
+  private:
+    SFE_UBLOX_GNSS gnss;
+    rtos::Thread gnss_thread;
+    bool gnss_thread_run;
+    //GNSS thread
+    void gnss_run();
 
-//Start GNSS thread
-extern int gnss_start(int update_rate);
-
-//GNSS thread
-void gnss_run();
-
-//Stop GNSS thread
-extern int gnss_stop();
+  public:
+    gnss_pos_type position;
+    //Start GNSS thread
+    int gnss_start(int update_rate);
+    //Stop GNSS thread
+    int gnss_stop();
+}; 
 
 #endif /* LOC_THREAD_H */
