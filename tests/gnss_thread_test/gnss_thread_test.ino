@@ -10,5 +10,13 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
+  delay(10);
+  if (p.position.fix_type != FIX_NONE) {
+    Serial.print(p.position.lat);
+    Serial.print(" ");
+    Serial.print(p.position.lon);
+    Serial.println();
+  } else {
+    Serial.println("No fix yet...");
+  }
 }
