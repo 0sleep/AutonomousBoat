@@ -35,7 +35,7 @@ int BoatRadio::send(gnss_pos_type *pos, sensor_data_t *sdata) {
   message->conductivity = sdata->conductivity;
   message->fluorescence = sdata->fluorescence;
   message->temperature = sdata->temperature;
-  message->unixEpoch=pos->timestamp;
+  message->unixEpoch = pos->timestamp;
   send_queue.put(message);
   return 0;
 }

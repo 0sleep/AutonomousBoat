@@ -1,6 +1,8 @@
 #include "radio_thread.h"
 
 BoatRadio br;
+Positioning loc;
+Sensor sen;
 
 void setup() {
   int err;
@@ -12,9 +14,11 @@ void setup() {
     Serial.print("Error in br.begin(): ");
     Serial.println(err);
   }
+  err = loc.gnss_start(25);
+  err = sen.begin();
 }
 
 void loop() {
-  delay(1000);
-  br.send();
+  delay(100);
+  br.send(&loc.position, &sen.sdata);
 }
