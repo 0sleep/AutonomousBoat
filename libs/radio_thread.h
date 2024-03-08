@@ -5,12 +5,14 @@
 //#include "printf.h" //no printf for now, arduino-cli compiler errors :/
 #include "RF24.h"
 #include "pindef.h"
+#include "loc_thread.h"
+#include "sensor_thread.h"
 
 #define SEND_QUEUE_LEN 20
 
 typedef struct {
-  float lat; //decimal degrees //TODO: maybe store these as fixed-point
-  float lon; //decimal degrees
+  int32_t lat; //decimal degrees //TODO: maybe store these as fixed-point
+  int32_t lon; //decimal degrees
   uint8_t head; //heading in degrees
   uint8_t targetnum; //n-th waypoint that the boat is aiming at
 

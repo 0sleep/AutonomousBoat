@@ -11,8 +11,8 @@ typedef enum {
 } gnss_fix_type;
 
 struct gnss_pos_type {
-  float lat;
-  float lon;
+  int32_t lat;
+  int32_t lon;
   float rot;
   gnss_fix_type fix_type;
   uint32_t timestamp;

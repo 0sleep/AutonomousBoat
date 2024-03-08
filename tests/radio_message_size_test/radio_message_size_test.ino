@@ -5,7 +5,7 @@ void setup() {
   while (!Serial);
   Serial.println("HELLO");
   //Ensure message_t size is less than 32 bytes, RF24 only supports "classic" shockburst protocol
-  Serial.println(sizeof(bad_message_t));
+  Serial.println(sizeof(message_t));
 }
 
 void loop() {
