@@ -30,7 +30,7 @@ class BoatRadio {
     //set up all
     int begin();
     //This submits things into the radio to-send queue
-    int send();
+    int send(gnss_pos_type *pos, sensor_data_t *sdata);
   private:
     rtos::Thread radioThread;
     void radioThread_run();

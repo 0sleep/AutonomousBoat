@@ -15,6 +15,7 @@ struct gnss_pos_type {
   float lon;
   float rot;
   gnss_fix_type fix_type;
+  uint32_t timestamp;
 };
 
 

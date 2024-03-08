@@ -23,19 +23,19 @@ int BoatRadio::begin() {
   return 0;
 }
 
-int BoatRadio::send() {
+int BoatRadio::send(gnss_pos_type *pos, sensor_data_t *sdata) {
   //TODO gather current state of measurements etc. into a message_t struct
   //TODO submit struct to message queue
   //dummy data
   message_t *message = send_mpool.alloc();
-  message->lat = 0.1;
-  message->lon = 0.2;
-  message->head = 53;
-  message->turbidity = 21;
-  message->conductivity = 3;
-  message->fluorescence = 8;
-  message->temperature = 21;
-  message->unixEpoch=1709654255;
+  message->lat = pos->lat;
+  message->lon = pos->lon;
+  message->head = pos->rot;
+  message->turbidity = sdata->turbidity;
+  message->conductivity = sdata->conductivity;
+  message->fluorescence = sdata->fluorescence;
+  message->temperature = sdata->temperature;
+  message->unixEpoch=pos->timestamp;
   send_queue.put(message);
   return 0;
 }
