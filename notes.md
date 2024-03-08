@@ -17,4 +17,4 @@ Status: Not Implemented
 
 ## Measurement thread
 Purpose: take periodic measurements and submit them to the radio to-send queue along with a timestamp and the current location
-Status: Not Implemented
+Status: Semi-implemented: needs to wait until physical sensors have been supplied
