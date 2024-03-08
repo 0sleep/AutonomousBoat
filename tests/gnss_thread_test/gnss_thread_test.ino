@@ -15,6 +15,8 @@ void loop() {
     Serial.print(p.position.lat);
     Serial.print(" ");
     Serial.print(p.position.lon);
+    Serial.print(" ");
+    Serial.print(p.position.timestamp);
     Serial.println();
   } else {
     Serial.println("No fix yet...");

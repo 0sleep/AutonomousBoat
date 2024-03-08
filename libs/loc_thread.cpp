@@ -46,6 +46,7 @@ void Positioning::gnss_run() {
     //put position into struct
     position.lat = gnss.getLatitude();
     position.lon = gnss.getLongitude();
+    position.timestamp = gnss.getUnixEpoch();
     //FIXME
     //position.rot = gnss.getHead;
     fix_type = gnss.getFixType();
