@@ -33,6 +33,9 @@ class Positioning {
     int gnss_start(int update_rate);
     //Stop GNSS thread
     int gnss_stop();
+    //Get lat/lon as floats
+    float get_lat();
+    float get_lon();
 }; 
 
 #endif /* LOC_THREAD_H */

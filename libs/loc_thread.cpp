@@ -72,3 +72,10 @@ int Positioning::gnss_stop() {
   gnss_thread_run = false;
   return 0;
 }
+
+float Positioning::get_lat() {
+  return (position.lat/10000000.0);
+}
+float Positioning::get_lon() {
+  return (position.lon/10000000.0);
+}
