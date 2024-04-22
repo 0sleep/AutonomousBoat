@@ -8,10 +8,10 @@
 // javascript example on http://www.movable-type.co.uk/scripts/latlong.html
 float distance_meters(float latA, float lonA, float latB, float lonB);
 
-//distance_meters helper function
+// helper function
 float convert_angle_radians(float angle);
 
 // calculate bearing to a target
-// returns in radians
-float bearing(float latFrom, float lonFrom, float latTo, float lonTo);
+// returns in degrees
+float bearing_degrees(float latFrom, float lonFrom, float latTo, float lonTo);
 #endif /*GEO_UTILS*/
