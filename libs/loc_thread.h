@@ -2,6 +2,8 @@
 #define LOC_THREAD_H
 #include "Wire.h"
 #include "mbed.h"
+#include "mag_calibration.h"
+#include <Adafruit_MMC56x3.h>
 #include <SparkFun_u-blox_GNSS_Arduino_Library.h>
 
 typedef enum {
@@ -13,7 +15,7 @@ typedef enum {
 struct gnss_pos_type {
   int32_t lat;
   int32_t lon;
-  float rot;
+  float rot; // rot is in degrees!
   gnss_fix_type fix_type;
   uint32_t timestamp;
 };
@@ -21,6 +23,7 @@ struct gnss_pos_type {
 
 class Positioning {
   private:
+    Adafruit_MMC5603 mmc;
     SFE_UBLOX_GNSS gnss;
     rtos::Thread gnss_thread;
     bool gnss_thread_run;
