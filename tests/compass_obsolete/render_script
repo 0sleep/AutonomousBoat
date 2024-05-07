@@ -1,0 +1,3 @@
+set datafile separator ","
+plot "sensor.csv" using 1:2
+pause -1 "Hit any key to continue"
