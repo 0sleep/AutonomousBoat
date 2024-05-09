@@ -1,7 +1,6 @@
 #include "sensor_thread.h"
 
-Sensor::Sensor() {
-  //TODO all of the pindefs here
+Sensor::Sensor(): temp(SENSE_TEMP_PIN), cond(SENSE_COND_PIN), fluo(SENSE_FLUO_PIN), turb(SENSE_TURB_PIN) {
 }
 
 int Sensor::begin() {
@@ -13,10 +12,24 @@ int Sensor::begin() {
 void Sensor::sensorThread_run() {
   while (true) {
     //do some measurements
-    sdata.temperature=rand();
-    sdata.conductivity=rand();
-    sdata.fluorescence=rand();
-    sdata.turbidity=rand();
+    sdata.temperature=(temp.read());
+    sdata.conductivity=(cond.read());
+    sdata.fluorescence=(fluo.read());
+    sdata.turbidity=(turb.read());
     thread_sleep_for(100);
   }
 }
+
+void Sensor::printData() {
+  Serial.println("SENSOR DEBUG INFO");
+  Serial.println("=================");
+  Serial.print("TEMP: ");
+  Serial.println(temp.read());
+  Serial.print("COND: ");
+  Serial.println(cond.read());
+  Serial.print("FLUO: ");
+  Serial.println(fluo.read());
+  Serial.print("TURB: ");
+  Serial.println(turb.read());
+}
+
