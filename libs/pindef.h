@@ -9,3 +9,10 @@
 
 #define LEFT_MOTOR_PIN P0_29
 #define RIGHT_MOTOR_PIN P0_30
+
+#define PUMP_PIN P0_21
+
+#define SENSE_TEMP_PIN P0_30
+#define SENSE_COND_PIN P0_29
+#define SENSE_FLUO_PIN P0_28
+#define SENSE_TURB_PIN P0_3
